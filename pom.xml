@@ -7,6 +7,26 @@
     <groupId>org.github.function.jdbc</groupId>
     <artifactId>org.github.function.jdbc</artifactId>
     <version>1.0</version>
+    <description>java.util.function classes with "Sql" prefix that throw SQLException</description>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE, Version 2.0</name>
+            <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/lscoughlin/function.sql</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Liam Seamus Coughlin</name>
+            <email>lscoughlin@gmail.com</email>
+        </developer>
+    </developers>
 
     <build>
         <plugins>
