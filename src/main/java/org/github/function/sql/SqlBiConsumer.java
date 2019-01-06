@@ -40,7 +40,7 @@ import java.util.function.BiConsumer;
  *
  * @param <T> the type of the first argument to the operation
  * @param <U> the type of the second argument to the operation
- * @see Consumer
+ * @see SqlConsumer
  * @since 1.8
  */
 @FunctionalInterface
@@ -66,7 +66,7 @@ public interface SqlBiConsumer<T, U> {
      * operation followed by the {@code after} operation
      * @throws NullPointerException if {@code after} is null
      */
-    default BiConsumer<T, U> andThen(BiConsumer<? super T, ? super U> after) throws SQLException {
+    default SqlBiConsumer<T, U> andThen(SqlBiConsumer<? super T, ? super U> after) throws SQLException {
         Objects.requireNonNull(after);
 
         return (l, r) -> {

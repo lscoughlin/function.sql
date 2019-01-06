@@ -30,12 +30,12 @@ import java.util.Objects;
 /**
  * Represents a predicate (boolean-valued function) of one {@code long}-valued
  * argument. This is the {@code long}-consuming primitive type specialization of
- * {@link Predicate}.
+ * {@link SqlPredicate}.
  *
  * <p>This is a <a href="package-summary.html">functional interface</a>
  * whose functional method is {@link #test(long)}.
  *
- * @see Predicate
+ * @see SqlPredicate
  * @since 1.8
  */
 @FunctionalInterface
@@ -66,7 +66,7 @@ public interface SqlLongPredicate {
      * AND of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default LongPredicate and(LongPredicate other) {
+    default SqlLongPredicate and(SqlLongPredicate other) {
         Objects.requireNonNull(other);
         return (value) -> test(value) && other.test(value);
     }
@@ -78,7 +78,7 @@ public interface SqlLongPredicate {
      * @return a predicate that represents the logical negation of this
      * predicate
      */
-    default LongPredicate negate() {
+    default SqlLongPredicate negate() {
         return (value) -> !test(value);
     }
 
@@ -98,7 +98,7 @@ public interface SqlLongPredicate {
      * OR of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default LongPredicate or(LongPredicate other) {
+    default SqlLongPredicate or(SqlLongPredicate other) {
         Objects.requireNonNull(other);
         return (value) -> test(value) || other.test(value);
     }

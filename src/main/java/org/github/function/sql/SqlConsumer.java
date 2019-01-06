@@ -26,6 +26,7 @@ package org.github.function.sql;
 
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Represents an operation that accepts a single input argument and returns no
@@ -60,7 +61,7 @@ public interface SqlConsumer<T> {
      * operation followed by the {@code after} operation
      * @throws NullPointerException if {@code after} is null
      */
-    default Consumer<T> andThen(Consumer<? super T> after) {
+    default SqlConsumer<T> andThen(SqlConsumer<? super T> after) {
         Objects.requireNonNull(after);
         return (T t) -> {
             accept(t);

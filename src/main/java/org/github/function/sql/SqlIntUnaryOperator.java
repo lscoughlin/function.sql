@@ -30,12 +30,12 @@ import java.util.Objects;
 /**
  * Represents an operation on a single {@code int}-valued operand that produces
  * an {@code int}-valued result.  This is the primitive type specialization of
- * {@link UnaryOperator} for {@code int}.
+ * {@link SqlUnaryOperator} for {@code int}.
  *
  * <p>This is a <a href="package-summary.html">functional interface</a>
  * whose functional method is {@link #applyAsInt(int)}.
  *
- * @see UnaryOperator
+ * @see SqlUnaryOperator
  * @since 1.8
  */
 @FunctionalInterface
@@ -59,9 +59,9 @@ public interface SqlIntUnaryOperator {
      * @return a composed operator that first applies the {@code before}
      * operator and then applies this operator
      * @throws NullPointerException if before is null
-     * @see #andThen(IntUnaryOperator)
+     * @see #andThen(SqlIntUnaryOperator)
      */
-    default IntUnaryOperator compose(IntUnaryOperator before) {
+    default SqlIntUnaryOperator compose(SqlIntUnaryOperator before) {
         Objects.requireNonNull(before);
         return (int v) -> applyAsInt(before.applyAsInt(v));
     }
@@ -76,9 +76,9 @@ public interface SqlIntUnaryOperator {
      * @return a composed operator that first applies this operator and then
      * applies the {@code after} operator
      * @throws NullPointerException if after is null
-     * @see #compose(IntUnaryOperator)
+     * @see #compose(SqlIntUnaryOperator)
      */
-    default IntUnaryOperator andThen(IntUnaryOperator after) {
+    default SqlIntUnaryOperator andThen(SqlIntUnaryOperator after) {
         Objects.requireNonNull(after);
         return (int t) -> after.applyAsInt(applyAsInt(t));
     }
@@ -88,7 +88,7 @@ public interface SqlIntUnaryOperator {
      *
      * @return a unary operator that always returns its input argument
      */
-    static IntUnaryOperator identity() {
+    static SqlIntUnaryOperator identity() {
         return t -> t;
     }
 }

@@ -30,12 +30,12 @@ import java.util.Objects;
 /**
  * Represents an operation on a single {@code long}-valued operand that produces
  * a {@code long}-valued result.  This is the primitive type specialization of
- * {@link UnaryOperator} for {@code long}.
+ * {@link SqlUnaryOperator} for {@code long}.
  *
  * <p>This is a <a href="package-summary.html">functional interface</a>
  * whose functional method is {@link #applyAsLong(long)}.
  *
- * @see UnaryOperator
+ * @see SqlUnaryOperator
  * @since 1.8
  */
 @FunctionalInterface
@@ -59,10 +59,9 @@ public interface SqlLongUnaryOperator {
      * @return a composed operator that first applies the {@code before}
      * operator and then applies this operator
      * @throws NullPointerException if before is null
-     *
-     * @see #andThen(LongUnaryOperator)
+     * @see #andThen(SqlLongUnaryOperator)
      */
-    default LongUnaryOperator compose(LongUnaryOperator before) {
+    default SqlLongUnaryOperator compose(SqlLongUnaryOperator before) {
         Objects.requireNonNull(before);
         return (long v) -> applyAsLong(before.applyAsLong(v));
     }
@@ -77,10 +76,9 @@ public interface SqlLongUnaryOperator {
      * @return a composed operator that first applies this operator and then
      * applies the {@code after} operator
      * @throws NullPointerException if after is null
-     *
-     * @see #compose(LongUnaryOperator)
+     * @see #compose(SqlLongUnaryOperator)
      */
-    default LongUnaryOperator andThen(LongUnaryOperator after) {
+    default SqlLongUnaryOperator andThen(SqlLongUnaryOperator after) {
         Objects.requireNonNull(after);
         return (long t) -> after.applyAsLong(applyAsLong(t));
     }
@@ -90,7 +88,7 @@ public interface SqlLongUnaryOperator {
      *
      * @return a unary operator that always returns its input argument
      */
-    static LongUnaryOperator identity() {
+    static SqlLongUnaryOperator identity() {
         return t -> t;
     }
 }

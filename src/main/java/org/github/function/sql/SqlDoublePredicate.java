@@ -26,6 +26,7 @@ package org.github.function.sql;
 
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.function.DoublePredicate;
 
 
 /**
@@ -67,7 +68,7 @@ public interface SqlDoublePredicate {
      * AND of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default DoublePredicate and(DoublePredicate other) {
+    default SqlDoublePredicate and(SqlDoublePredicate other) {
         Objects.requireNonNull(other);
         return (value) -> test(value) && other.test(value);
     }
@@ -79,7 +80,7 @@ public interface SqlDoublePredicate {
      * @return a predicate that represents the logical negation of this
      * predicate
      */
-    default DoublePredicate negate() {
+    default SqlDoublePredicate negate() {
         return (value) -> !test(value);
     }
 
@@ -99,7 +100,7 @@ public interface SqlDoublePredicate {
      * OR of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default DoublePredicate or(DoublePredicate other) {
+    default SqlDoublePredicate or(SqlDoublePredicate other) {
         Objects.requireNonNull(other);
         return (value) -> test(value) || other.test(value);
     }

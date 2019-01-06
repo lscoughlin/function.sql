@@ -25,6 +25,8 @@
 package org.github.function.sql;
 
 
+import java.util.function.UnaryOperator;
+
 /**
  * Represents an operation on a single operand that produces a result of the
  * same type as its operand.  This is a specialization of {@code Function} for
@@ -38,7 +40,7 @@ package org.github.function.sql;
  * @since 1.8
  */
 @FunctionalInterface
-public interface SqlUnaryOperator<T> extends Function<T, T> {
+public interface SqlUnaryOperator<T> extends SqlFunction<T, T> {
 
     /**
      * Returns a unary operator that always returns its input argument.

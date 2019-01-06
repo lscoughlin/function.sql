@@ -25,17 +25,18 @@
 package org.github.function.sql;
 
 import java.util.Objects;
+import java.util.function.IntPredicate;
 
 
 /**
  * Represents a predicate (boolean-valued function) of one {@code int}-valued
  * argument. This is the {@code int}-consuming primitive type specialization of
- * {@link Predicate}.
+ * {@link SqlPredicate}.
  *
  * <p>This is a <a href="package-summary.html">functional interface</a>
  * whose functional method is {@link #test(int)}.
  *
- * @see Predicate
+ * @see SqlPredicate
  * @since 1.8
  */
 @FunctionalInterface
@@ -66,7 +67,7 @@ public interface SqlIntPredicate {
      * AND of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default IntPredicate and(IntPredicate other) {
+    default SqlIntPredicate and(SqlIntPredicate other) {
         Objects.requireNonNull(other);
         return (value) -> test(value) && other.test(value);
     }
@@ -78,7 +79,7 @@ public interface SqlIntPredicate {
      * @return a predicate that represents the logical negation of this
      * predicate
      */
-    default IntPredicate negate() {
+    default SqlIntPredicate negate() {
         return (value) -> !test(value);
     }
 
@@ -98,7 +99,7 @@ public interface SqlIntPredicate {
      * OR of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default IntPredicate or(IntPredicate other) {
+    default SqlIntPredicate or(SqlIntPredicate other) {
         Objects.requireNonNull(other);
         return (value) -> test(value) || other.test(value);
     }

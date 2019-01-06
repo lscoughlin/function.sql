@@ -63,7 +63,7 @@ public interface SqlPredicate<T> {
      * AND of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default Predicate<T> and(Predicate<? super T> other) {
+    default SqlPredicate<T> and(SqlPredicate<? super T> other) {
         Objects.requireNonNull(other);
         return (t) -> test(t) && other.test(t);
     }
@@ -75,7 +75,7 @@ public interface SqlPredicate<T> {
      * @return a predicate that represents the logical negation of this
      * predicate
      */
-    default Predicate<T> negate() {
+    default SqlPredicate<T> negate() {
         return (t) -> !test(t);
     }
 
@@ -95,7 +95,7 @@ public interface SqlPredicate<T> {
      * OR of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default Predicate<T> or(Predicate<? super T> other) {
+    default SqlPredicate<T> or(SqlPredicate<? super T> other) {
         Objects.requireNonNull(other);
         return (t) -> test(t) || other.test(t);
     }
@@ -110,7 +110,7 @@ public interface SqlPredicate<T> {
      * @return a predicate that tests if two arguments are equal according
      * to {@link Objects#equals(Object, Object)}
      */
-    static <T> Predicate<T> isEqual(Object targetRef) {
+    static <T> SqlPredicate<T> isEqual(Object targetRef) {
         return (null == targetRef)
                 ? Objects::isNull
                 : object -> targetRef.equals(object);

@@ -26,7 +26,7 @@ package org.github.function.sql;
 
 import java.util.Objects;
 import java.util.Comparator;
-
+import java.util.function.BinaryOperator;
 
 
 /**
@@ -41,11 +41,11 @@ import java.util.Comparator;
  * @param <T> the type of the operands and result of the operator
  *
  * @see java.util.function.BiFunction
- * @see UnaryOperator
+ * @see SqlUnaryOperator
  * @since 1.8
  */
 @FunctionalInterface
-public interface SqlBinaryOperator<T> extends BiFunction<T,T,T> {
+public interface SqlBinaryOperator<T> extends SqlBiFunction<T,T,T> {
     /**
      * Returns a {@link BinaryOperator} which returns the lesser of two elements
      * according to the specified {@code Comparator}.
@@ -56,7 +56,7 @@ public interface SqlBinaryOperator<T> extends BiFunction<T,T,T> {
      *         according to the supplied {@code Comparator}
      * @throws NullPointerException if the argument is null
      */
-    static <T> BinaryOperator<T> minBy(Comparator<? super T> comparator) {
+    static <T> SqlBinaryOperator<T> minBy(Comparator<? super T> comparator) {
         Objects.requireNonNull(comparator);
         return (a, b) -> comparator.compare(a, b) <= 0 ? a : b;
     }
@@ -71,7 +71,7 @@ public interface SqlBinaryOperator<T> extends BiFunction<T,T,T> {
      *         according to the supplied {@code Comparator}
      * @throws NullPointerException if the argument is null
      */
-    static <T> BinaryOperator<T> maxBy(Comparator<? super T> comparator) {
+    static <T> SqlBinaryOperator<T> maxBy(Comparator<? super T> comparator) {
         Objects.requireNonNull(comparator);
         return (a, b) -> comparator.compare(a, b) >= 0 ? a : b;
     }

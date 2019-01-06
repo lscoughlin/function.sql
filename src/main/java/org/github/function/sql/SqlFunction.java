@@ -26,6 +26,7 @@ package org.github.function.sql;
 
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * Represents a function that accepts one argument and produces a result.
@@ -60,9 +61,9 @@ public interface SqlFunction<T, R> {
      * @return a composed function that first applies the {@code before}
      * function and then applies this function
      * @throws NullPointerException if before is null
-     * @see #andThen(Function)
+     * @see #andThen(SqlFunction)
      */
-    default <V> Function<V, R> compose(Function<? super V, ? extends T> before) {
+    default <V> SqlFunction<V, R> compose(SqlFunction<? super V, ? extends T> before) {
         Objects.requireNonNull(before);
         return (V v) -> apply(before.apply(v));
     }
@@ -79,9 +80,9 @@ public interface SqlFunction<T, R> {
      * @return a composed function that first applies this function and then
      * applies the {@code after} function
      * @throws NullPointerException if after is null
-     * @see #compose(Function)
+     * @see #compose(SqlFunction)
      */
-    default <V> Function<T, V> andThen(Function<? super R, ? extends V> after) {
+    default <V> SqlFunction<T, V> andThen(SqlFunction<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
         return (T t) -> after.apply(apply(t));
     }
@@ -92,7 +93,7 @@ public interface SqlFunction<T, R> {
      * @param <T> the type of the input and output objects to the function
      * @return a function that always returns its input argument
      */
-    static <T> Function<T, T> identity() {
+    static <T> SqlFunction<T, T> identity() {
         return t -> t;
     }
 }

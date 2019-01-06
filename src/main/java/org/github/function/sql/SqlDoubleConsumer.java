@@ -26,6 +26,7 @@ package org.github.function.sql;
 
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.function.DoubleConsumer;
 
 
 /**
@@ -62,7 +63,7 @@ public interface SqlDoubleConsumer {
      * operation followed by the {@code after} operation
      * @throws NullPointerException if {@code after} is null
      */
-    default DoubleConsumer andThen(DoubleConsumer after) {
+    default SqlDoubleConsumer andThen(SqlDoubleConsumer after) {
         Objects.requireNonNull(after);
         return (double t) -> {
             accept(t);

@@ -25,6 +25,7 @@
 package org.github.function.sql;
 
 import java.util.Objects;
+import java.util.function.IntConsumer;
 
 
 /**
@@ -36,7 +37,7 @@ import java.util.Objects;
  * <p>This is a <a href="package-summary.html">functional interface</a>
  * whose functional method is {@link #accept(int)}.
  *
- * @see Consumer
+ * @see SqlConsumer
  * @since 1.8
  */
 @FunctionalInterface
@@ -61,7 +62,7 @@ public interface SqlIntConsumer {
      * operation followed by the {@code after} operation
      * @throws NullPointerException if {@code after} is null
      */
-    default IntConsumer andThen(IntConsumer after) {
+    default SqlIntConsumer andThen(SqlIntConsumer after) {
         Objects.requireNonNull(after);
         return (int t) -> { accept(t); after.accept(t); };
     }

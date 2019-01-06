@@ -26,6 +26,7 @@ package org.github.function.sql;
 
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.function.DoubleUnaryOperator;
 
 
 /**
@@ -60,9 +61,9 @@ public interface SqlDoubleUnaryOperator {
      * @return a composed operator that first applies the {@code before}
      * operator and then applies this operator
      * @throws NullPointerException if before is null
-     * @see #andThen(DoubleUnaryOperator)
+     * @see #andThen(SqlDoubleUnaryOperator)
      */
-    default DoubleUnaryOperator compose(DoubleUnaryOperator before) {
+    default SqlDoubleUnaryOperator compose(SqlDoubleUnaryOperator before) {
         Objects.requireNonNull(before);
         return (double v) -> applyAsDouble(before.applyAsDouble(v));
     }
@@ -77,9 +78,9 @@ public interface SqlDoubleUnaryOperator {
      * @return a composed operator that first applies this operator and then
      * applies the {@code after} operator
      * @throws NullPointerException if after is null
-     * @see #compose(DoubleUnaryOperator)
+     * @see #compose(SqlDoubleUnaryOperator)
      */
-    default DoubleUnaryOperator andThen(DoubleUnaryOperator after) {
+    default SqlDoubleUnaryOperator andThen(SqlDoubleUnaryOperator after) {
         Objects.requireNonNull(after);
         return (double t) -> after.applyAsDouble(applyAsDouble(t));
     }

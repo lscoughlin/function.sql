@@ -30,7 +30,7 @@ import java.util.Objects;
 
 /**
  * Represents a function that accepts two arguments and produces a result.
- * This is the two-arity specialization of {@link Function}.
+ * This is the two-arity specialization of {@link SqlFunction}.
  *
  * <p>This is a <a href="package-summary.html">functional interface</a>
  * whose functional method is {@link #apply(Object, Object)}.
@@ -38,7 +38,7 @@ import java.util.Objects;
  * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
  * @param <R> the type of the result of the function
- * @see Function
+ * @see SqlFunction
  * @since 1.8
  */
 @FunctionalInterface
@@ -66,7 +66,7 @@ public interface SqlBiFunction<T, U, R> {
      * applies the {@code after} function
      * @throws NullPointerException if after is null
      */
-    default <V> BiFunction<T, U, V> andThen(Function<? super R, ? extends V> after) throws SQLException {
+    default <V> SqlBiFunction<T, U, V> andThen(SqlFunction<? super R, ? extends V> after) throws SQLException {
         Objects.requireNonNull(after);
         return (T t, U u) -> after.apply(apply(t, u));
     }

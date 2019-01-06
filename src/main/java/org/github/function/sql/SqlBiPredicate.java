@@ -26,6 +26,7 @@ package org.github.function.sql;
 
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.function.BiPredicate;
 
 
 /**
@@ -69,7 +70,7 @@ public interface SqlBiPredicate<T, U> {
      * AND of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default BiPredicate<T, U> and(BiPredicate<? super T, ? super U> other) {
+    default SqlBiPredicate<T, U> and(SqlBiPredicate<? super T, ? super U> other) {
         Objects.requireNonNull(other);
         return (T t, U u) -> test(t, u) && other.test(t, u);
     }
@@ -81,7 +82,7 @@ public interface SqlBiPredicate<T, U> {
      * @return a predicate that represents the logical negation of this
      * predicate
      */
-    default BiPredicate<T, U> negate() {
+    default SqlBiPredicate<T, U> negate() {
         return (T t, U u) -> !test(t, u);
     }
 
@@ -101,7 +102,7 @@ public interface SqlBiPredicate<T, U> {
      * OR of this predicate and the {@code other} predicate
      * @throws NullPointerException if other is null
      */
-    default BiPredicate<T, U> or(BiPredicate<? super T, ? super U> other) {
+    default SqlBiPredicate<T, U> or(SqlBiPredicate<? super T, ? super U> other) {
         Objects.requireNonNull(other);
         return (T t, U u) -> test(t, u) || other.test(t, u);
     }
