@@ -1,2 +1,3 @@
 # function.sql
-java.util.function classes that throw SqlException
+java.util.function classes with Sql prefix added and that throw SqlException
+ 
